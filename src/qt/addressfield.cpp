@@ -76,6 +76,10 @@ void AddressField::setComboBoxEditable(bool editable)
 
 void AddressField::on_refresh()
 {
+    // Skip gui event in case of batch processing
+    if(fBatchProcessingMode)
+        return;
+
     // Initialize variables
     QString currentAddress = currentText();
     m_stringList.clear();

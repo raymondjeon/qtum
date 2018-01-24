@@ -127,6 +127,10 @@ void SendTokenPage::on_clearButton_clicked()
 
 void SendTokenPage::on_numBlocksChanged()
 {
+    // Skip gui event in case of batch processing
+    if(fBatchProcessingMode)
+        return;
+
     if(m_clientModel)
     {
         uint64_t blockGasLimit = 0;

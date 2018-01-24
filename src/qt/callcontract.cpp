@@ -15,6 +15,7 @@
 #include "contracttablemodel.h"
 #include "styleSheet.h"
 #include "guiutil.h"
+#include "wallet/wallet.h"
 #include <QClipboard>
 
 namespace CallContract_NS
@@ -195,6 +196,10 @@ void CallContract::on_callContractClicked()
 
 void CallContract::on_numBlocksChanged()
 {
+    // Skip gui event in case of batch processing
+    if(fBatchProcessingMode)
+        return;
+
     if(m_clientModel)
     {
         ui->lineEditSenderAddress->on_refresh();

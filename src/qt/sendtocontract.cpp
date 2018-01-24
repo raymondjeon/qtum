@@ -20,6 +20,7 @@
 #include "styleSheet.h"
 #include "guiutil.h"
 #include "sendcoinsdialog.h"
+#include "wallet/wallet.h"
 #include <QClipboard>
 
 namespace SendToContract_NS
@@ -256,6 +257,10 @@ void SendToContract::on_sendToContractClicked()
 
 void SendToContract::on_numBlocksChanged()
 {
+    // Skip gui event in case of batch processing
+    if(fBatchProcessingMode)
+        return;
+
     if(m_clientModel)
     {
         uint64_t blockGasLimit = 0;
